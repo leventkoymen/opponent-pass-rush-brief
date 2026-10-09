@@ -75,4 +75,4 @@ Validation anchors: Cleveland pressure **93/227 (41.0%)**; Myles Garrett **40/17
 
 ## Implementation
 
-Buildless HTML/CSS/ES modules, pure metric functions, canvas field replay, Python standard-library data pipeline. There is no account system, prediction model, data-upload backend or current-season feed. Sites deployment is private to the owner. The `.openai/hosting.json` records its exact site identity.
+Buildless HTML/CSS/ES modules, pure metric functions, canvas field replay, Python standard-library data pipeline. There is no account system, prediction model, data-upload backend or current-season feed. The public demo is hosted on [AWS Amplify](https://production.dq0yh80z3cam4.amplifyapp.com/) in London (`eu-west-2`). The earlier Sites prototype is separate; its hosting configuration is not included in this submission.

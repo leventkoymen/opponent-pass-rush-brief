@@ -1,6 +1,6 @@
 # Hackathon submission worksheet
 
-This is a project-specific draft, not a claim to match an organizer's unseen submission template. Fill the remaining event/team/deployment fields before submission.
+This is a project-specific draft, not a claim to match an organizer's unseen submission template. Fill the remaining event and team fields before submission.
 
 ## Project
 
@@ -25,13 +25,11 @@ The prior analysis's report and example images were unavailable. The project ind
 
 ## AWS contribution
 
-**Prepared:** CloudFormation definition of S3 storage and CloudFront delivery, Origin Access Control, caching, compression, encrypted/versioned buckets and a release-based deployment runbook.
+**Live:** [AWS demo](https://production.dq0yh80z3cam4.amplifyapp.com/) on AWS Amplify Hosting in Europe (London), `eu-west-2`, using the `production` branch. Deployment 2 succeeded on 9 October 2026; live replay and example tendency counts were checked in Chrome.
 
-**After actual AWS deployment, replace the following statement with the verified deployment evidence:**
+**Source:** [GitHub repository](https://github.com/leventkoymen/opponent-pass-rush-brief). Python prepares the data locally; JavaScript computes filtered summaries and renders replays in the browser.
 
-> The working prototype currently runs on Sites. AWS infrastructure is prepared and locally validated, but has not yet been deployed in an AWS account.
-
-Do not describe the project as using Bedrock, Lambda, Athena, CodeBuild or machine learning in its current implementation. CodeBuild is a proposed next step for reproducible processing. No generative model is required to produce the existing brief.
+The repository also includes an unused S3/CloudFront CloudFormation alternative. It is not the infrastructure used for the live demo. Bedrock, Lambda, Athena, CodeBuild and machine learning are not used by the current product.
 
 ## Three-minute demonstration
 
@@ -60,7 +58,7 @@ Record only the application window, with readable player names and narration:
 | 55–75 sec | Expand the three opponent tendencies | “The brief shows pressure sources, extra rushers and coverage, with sample sizes. Each finding links to the supporting plays.” |
 | 75–90 sec | Open one supporting play; finish on the main view | “This is a historical prototype using 2021 weeks 1–8. It helps a coach decide what to review next.” |
 
-Show the AWS address only after it is deployed and verified. If recording the current prototype before migration, describe it as the working prototype; do not claim that footage proves AWS hosting. After uploading, verify that a judge can open the video link and that sound and text are clear. Keep a downloaded MP4 as well as the link.
+Record the live Amplify site and show its AWS address. After uploading, verify that a judge can open the video link and that sound and text are clear. Keep a downloaded MP4 as well as the link.
 
 ## Validation and limitations
 
@@ -76,14 +74,14 @@ This historical passing-situation dataset does not support current scouting with
 | --- | --- |
 | Event and track name | Add organizer's exact name |
 | Team members and contribution descriptions | Add actual names and work |
-| AWS account/Region | Select the event account and permitted region |
-| Judge access | Choose public or restricted before enabling AWS serving |
-| AWS-hosted URL | Add only after successful deployment and smoke testing |
-| Repository URL / submission archive | Add final delivery destination |
+| AWS Region | Europe (London), `eu-west-2` |
+| Judge access | Public Amplify website |
+| AWS-hosted URL | [Open demo](https://production.dq0yh80z3cam4.amplifyapp.com/) |
+| Repository URL | [GitHub](https://github.com/leventkoymen/opponent-pass-rush-brief) |
 | Demo recording | Record the verified application and architecture |
 | Dataset-use terms | Record the organizer's applicable terms; public availability alone is not a redistribution license |
 | Submission deadline and required form fields | Copy the organizer's actual requirements |
 
 ## Suggested judging evidence
 
-Provide the README, architecture diagram, exact dataset revision, test output, AWS stack outputs and a short recording. Distinguish implemented behavior, local validation, actual AWS deployment and future proposals. No measured improvement in coaching outcomes, prediction accuracy or AWS latency has been established.
+Provide the README, architecture diagram, exact dataset revision, test output, Amplify deployment status and live URL and a short recording. Distinguish implemented behavior, local validation, actual AWS deployment and future proposals. No measured improvement in coaching outcomes, prediction accuracy or AWS latency has been established.

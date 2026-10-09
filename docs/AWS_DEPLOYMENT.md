@@ -1,6 +1,22 @@
 # AWS deployment runbook
 
-**Status:** infrastructure prepared and locally validated; no AWS stack has been created or tested in an AWS account. The existing Sites URL is a separate private prototype, not evidence of AWS hosting.
+## Live site: AWS Amplify Hosting
+
+**Deployed:** [Film Room](https://production.dq0yh80z3cam4.amplifyapp.com/), Europe (London), `eu-west-2`. App ID: `dq0yh80z3cam4`; branch: `production`. Deployment 2 succeeded on 9 October 2026. The live replay and example tendency counts were checked in Chrome.
+
+To update the live website:
+
+1. Run `npm test` from the repository root.
+2. ZIP the **contents** of `dist/`, with `index.html` at the ZIP root. Do not upload the submission archive or a ZIP containing a parent `dist` folder.
+3. In the AWS console, choose London, open Amplify, select `opponent-pass-rush-brief`, then **Deploy updates** for `production`.
+4. Choose **Drag and drop**, select the website ZIP, then **Save and deploy**.
+5. Wait for **Deployed**, open the public URL, and check playback, opponent selection and evidence counts. The unfiltered Cleveland example has Garrett at 40/179 pressure-credit reps, extra rushers at 51/227 plays and Cover-3 at 80/227 labeled plays.
+
+The GitHub repository contains the source and documentation; the current Amplify branch uses manual uploads and is not configured for automatic GitHub deployments. Hosting exposes the processed JSON as well as the interface. Usage follows the AWS account's plan and credits.
+
+## Alternative S3/CloudFront deployment — not used for the live site
+
+The remaining instructions apply only to the optional CloudFormation stack. No instance of that stack has been deployed or tested in an AWS account. These are not the settings or deployment history of the live Amplify site.
 
 This guide uses AWS CLI v2 and standard commercial AWS regions. Use the event account and its permitted region. The template provisions two S3 buckets, two bucket policies, one CloudFront distribution, Origin Access Control, a cache policy and a response-headers policy. It provisions no compute service, IAM users, databases or viewer login system.
 

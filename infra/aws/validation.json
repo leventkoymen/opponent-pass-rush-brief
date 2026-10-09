@@ -1,5 +1,5 @@
 {
-  "scope": "AWS planning and deployment scaffold",
+  "scope": "Unused S3/CloudFront deployment scaffold; live Amplify deployment recorded separately",
   "deployedToAWS": false,
   "applicationTests": {
     "passed": 15,
@@ -13,8 +13,24 @@
     "sha256": "0d0695f622620ff7e7c82c4d0644b6437b803392f4e24732c9d871613e4fab22"
   },
   "documentationLinks": "passed",
-  "awsAccountAccess": "Checked: no configured profiles, credentials, or region",
-  "liveAWSChecks": "pending deployment",
+  "awsAccountAccess": "Not rechecked for this alternative CloudFormation stack",
+  "liveAWSChecks": "This alternative stack has not been deployed; see liveAmplifyDeployment",
   "accessDefault": "CloudFront distribution disabled; explicit public-enable parameter",
-  "deploymentScriptValidation": "bash syntax passed; live execution pending AWS account access"
+  "deploymentScriptValidation": "bash syntax passed; not executed against AWS",
+  "liveAmplifyDeployment": {
+    "service": "AWS Amplify Hosting",
+    "region": "eu-west-2",
+    "appId": "dq0yh80z3cam4",
+    "branch": "production",
+    "deployment": 2,
+    "status": "SUCCEED",
+    "verifiedOn": "2026-10-09",
+    "url": "https://production.dq0yh80z3cam4.amplifyapp.com/",
+    "checks": [
+      "Chrome: page loads and tracking playback advances",
+      "Chrome: Garrett 40/179; extra rushers 51/227; Cover-3 80/227",
+      "Public HTTP: HTML and 7,767-play index retrieved"
+    ],
+    "limits": "No claim of full cross-browser validation or verification of custom CloudFront policies for Amplify"
+  }
 }

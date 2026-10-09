@@ -9,10 +9,10 @@
 | Area | Status |
 | --- | --- |
 | Working coaching application | Implemented and locally/browser tested |
-| Existing private prototype | [Open the Sites demo](https://opponent-pass-rush-brief.leventkoymen.chatgpt.site); this is not the AWS deployment |
+| Live AWS demo | [Open the Film Room](https://production.dq0yh80z3cam4.amplifyapp.com/); public Amplify deployment in London |
 | NFL/PFF data preparation | Implemented; pinned source and reproducible metrics |
-| AWS architecture | S3 + CloudFront, defined with CloudFormation |
-| AWS deployment template | Included and locally validated; **not deployed to AWS yet** |
+| AWS architecture | Amplify Hosting; manual ZIP upload; browser-side metrics and replay |
+| Alternative AWS template | S3/CloudFront CloudFormation definition; locally validated, not used for the live site |
 | AWS processing pipeline | CodeBuild proposed as a later milestone; not provisioned |
 | Generative AI / predictive model | Not used by the current product |
 
@@ -51,37 +51,13 @@ The server listens only on this computer. This is a local website, not a public 
 
 If the port is busy: `npm start -- --port 4174`. To avoid opening a browser automatically: `npm start -- --no-open`. To run checks: `npm test`. If Node is unavailable, the equivalent Python fallback is `python3 -m http.server 4173 --bind 127.0.0.1 --directory dist`, followed by opening the local URL yourself.
 
-## AWS architecture
+## AWS hosting
 
-```mermaid
-flowchart LR
-    CSV["Pinned NFL/PFF CSVs"] --> ETL["Python preparation + tests\nLocal in first AWS milestone"]
-    CSV -. "optional archive" .-> RAW["S3 data bucket\nPrivate source snapshot"]
-    ETL --> APP["S3 app bucket\nVersioned release files"]
-    APP -->|"Signed origin requests"| CDN["CloudFront\nHTTPS + caching + compression"]
-    CDN --> COACH["Coach's browser\nDeterministic metrics + replay"]
-    CFN["CloudFormation"] -. provisions .-> RAW
-    CFN -. provisions .-> APP
-    CFN -. provisions .-> CDN
-```
+The [live demo](https://production.dq0yh80z3cam4.amplifyapp.com/) runs on AWS Amplify Hosting in London (`eu-west-2`), app `dq0yh80z3cam4`, branch `production`. Deployment 2 succeeded on 9 October 2026. The uploaded ZIP contains the contents of `dist/`; Python preparation runs locally and filtered metrics and animation run in the browser.
 
-The existing application is read-only and operates on a fixed sample. S3 stores the processed app/data and an optional source archive; CloudFront delivers files; CloudFormation makes deployment reproducible. Filtering and replay stay in the browser. We do not need a query API, database or generative model for this workflow.
+The site is public, including its processed JSON. It uses manual uploads rather than an automatic GitHub deployment. The included S3/CloudFront template and deployment script are an unused alternative, not a description of the live infrastructure.
 
-AWS recommends CloudFront Origin Access Control for restricting an S3 origin. The template keeps both buckets' public access blocked and allows the designated distribution to read only app release objects. [AWS origin-access documentation](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html).
-
-**Access is a separate decision:** the distribution starts disabled. Setting `EnablePublicDemo=true` enables a public demo, including access to processed JSON. S3 privacy does not authenticate website viewers. Restricted judge access requires a viewer-authentication implementation before enabling serving; it is not provided by this template.
-
-For deployment without installing anything on your computer, upload the AWS package to CloudShell and use `infra/aws/deploy.sh`. The [AWS deployment runbook](AWS_DEPLOYMENT.md) starts with that browser-only route. It covers change-set review, asset uploads, access, smoke tests, release updates, rollback and cleanup. No AWS resources or charges were created as part of preparing this package.
-
-## Delivery plan
-
-| Milestone | Deliverable | Completion condition |
-| --- | --- | --- |
-| 1. AWS-hosted MVP | Existing product on S3/CloudFront | AWS URL and browser smoke test pass; judge access works; original metrics reconcile |
-| 2. Reproducible AWS processing, if useful | CodeBuild prepares and validates a candidate release from a pinned S3 snapshot | Failed validation cannot replace the live release; audit and logs are retained |
-| 3. Requirement-led extensions | Persistent review lists, larger data queries or grounded narrative summaries | A specific user/judging requirement justifies the added service and its validation |
-
-See [architecture and tradeoffs](AWS_ARCHITECTURE.md) for component status, acceptance criteria and cost inputs. See the [submission worksheet and 3-minute demo script](HACKATHON_SUBMISSION.md) for the event deliverables.
+See [architecture](AWS_ARCHITECTURE.md), [deployment instructions](AWS_DEPLOYMENT.md) and the [submission and recording guide](HACKATHON_SUBMISSION.md).
 
 ## Data and methodology
 
@@ -127,7 +103,7 @@ python3 scripts/validate_source.py --input /path/to/raw-data --output dist/data
 
 Tests cover historical anchors, all team/down/distance partitions, takeaway evidence counts, empty samples, attribution and all 7,767 replay structures. AWS template tests check the publication default, bucket isolation, origin restrictions and release/caching configuration. The independent raw validator checks every eligible play's pressure/rusher IDs and outcomes, plus every coordinate of one play in each of 122 games. `source-validation.json` records the prior successful raw-data check.
 
-The 15 automated tests include key-player selection, missing timing tags and the protection camera, local HTTP serving, missing-file responses and refusal to serve files outside the app. Desktop and 390px mobile browser checks passed for the guided replay, manual player selection, uncredited players, missing snap tags and empty search results. AWS template validation is not an AWS deployment test; the AWS runbook lists the remaining live checks.
+The 15 automated tests include key-player selection, missing timing tags and the protection camera, local HTTP serving, missing-file responses and refusal to serve files outside the app. Desktop and 390px mobile browser checks passed for the guided replay, manual player selection, uncredited players, missing snap tags and empty search results. The Amplify deployment was separately checked for live replay and example tendency counts. Template tests cover only the unused S3/CloudFront alternative.
 
 ## Repository guide
 
@@ -146,7 +122,6 @@ docs/AWS_ARCHITECTURE.md       Service choices, diagram and delivery milestones
 docs/AWS_DEPLOYMENT.md         Deployment, access, rollback and cleanup runbook
 docs/HACKATHON_SUBMISSION.md   Submission draft and demonstration script
 docs/METHODOLOGY.md            Detailed original implementation/data notes
-.openai/hosting.json           Existing Sites identity; not an AWS resource
 ```
 
-No ownership or license for NFL/PFF data is asserted by this repository. Use the event's applicable dataset terms when choosing submission and hosting access. Team names, organizer fields, AWS Region/account and the eventual AWS URL must be filled with actual information before submission.
+No ownership or license for NFL/PFF data is asserted by this repository. Use the event's applicable dataset terms when choosing submission and hosting access. Complete the remaining event and team fields before submission; the live AWS URL and Region are recorded above.
