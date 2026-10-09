@@ -1,0 +1,20 @@
+{
+  "scope": "AWS planning and deployment scaffold",
+  "deployedToAWS": false,
+  "applicationTests": {
+    "passed": 15,
+    "failed": 0
+  },
+  "templateValidation": {
+    "tool": "cfn-lint",
+    "version": "1.57.2",
+    "exitCode": 0,
+    "template": "infra/aws/template.json",
+    "sha256": "0d0695f622620ff7e7c82c4d0644b6437b803392f4e24732c9d871613e4fab22"
+  },
+  "documentationLinks": "passed",
+  "awsAccountAccess": "Checked: no configured profiles, credentials, or region",
+  "liveAWSChecks": "pending deployment",
+  "accessDefault": "CloudFront distribution disabled; explicit public-enable parameter",
+  "deploymentScriptValidation": "bash syntax passed; live execution pending AWS account access"
+}

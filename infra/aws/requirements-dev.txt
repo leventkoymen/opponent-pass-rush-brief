@@ -1,0 +1,2 @@
+# Optional local template validation only; not needed by the application.
+cfn-lint==1.57.2
